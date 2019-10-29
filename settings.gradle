@@ -1,0 +1,17 @@
+ pluginManagement{
+	 
+	 resolutionStrategy {
+		 eachPlugin {
+			 if (requested.id.namespace == 'org.springframework') {
+				 useModule("org.springframework.boot:spring-boot-gradle-plugin:${requested.version}")
+			 } else if (requested.id.namespace == 'io.spring') {
+				 useModule("io.spring.gradle:dependency-management-plugin:${requested.version}")
+			 }
+		 }
+	 }
+	 
+	 repositories {
+		jcenter()
+	 }
+ }
+rootProject.name = 'services'

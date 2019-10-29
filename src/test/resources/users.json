@@ -1,0 +1,23 @@
+[
+	{
+		"_id": "5cbd0037f56f1a9efd32bcdc",
+		"firstName": "Karthick",
+		"lastName": "Jeyaraj",
+		"employeeID": "4254354354",
+		"_class": "com.fsd.program.entity.User"
+	},
+	{
+		"_id": "5cbd0037f56f1a9efd32bcdd",
+		"firstName": "Steve",
+		"lastName": "Rogers",
+		"employeeID": "4254354354",
+		"_class": "com.fsd.program.entity.User"
+	},
+	{
+		"_id": "5cbd0037f56f1a9efd32bc",
+		"firstName": "Tony",
+		"lastName": "Stark",
+		"employeeID": "4254354354",
+		"_class": "com.fsd.program.entity.User"
+	}
+]
