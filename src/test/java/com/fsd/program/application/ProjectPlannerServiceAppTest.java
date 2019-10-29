@@ -6,8 +6,8 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@SpringBootTest(classes = { ServicesApplication.class })
-public class ServicesApplicationTest {
+@SpringBootTest(classes = { ProjectPlannerServiceApp.class })
+public class ProjectPlannerServiceAppTest {
 
 	@Test
 	public void contextLoads() {
@@ -15,7 +15,7 @@ public class ServicesApplicationTest {
 
 	@Test
 	public void testMain() {
-		ServicesApplication.main(new String[] { "--spring.main.web-environment=false" });
+		ProjectPlannerServiceApp.main(new String[] { "--spring.main.web-environment=false" });
 	}
 
 }

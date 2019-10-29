@@ -17,10 +17,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.fsd.program.entity.Project;
+import com.fsd.program.entity.ProjectEntity;
 
 /**
- * @author kj
+ * @author KarthickM
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,11 +29,11 @@ import com.fsd.program.entity.Project;
 public class ProjectServicesTest {
 
 	@Autowired
-	private ProjectServices testCase;
+	private ProjectSvcs testCase;
 
 	/**
 	 * Test method for
-	 * {@link com.fsd.program.services.ProjectServices#getProjects()}.
+	 * {@link com.fsd.program.services.ProjectSvcs#getProjects()}.
 	 */
 	@Test
 	public void testGetProjects() {
@@ -42,7 +42,7 @@ public class ProjectServicesTest {
 
 	/**
 	 * Test method for
-	 * {@link com.fsd.program.services.ProjectServices#addUpdateProject(java.util.Map)}.
+	 * {@link com.fsd.program.services.ProjectSvcs#addUpdateProject(java.util.Map)}.
 	 */
 	@Test
 	public void testAddUpdateProject() {
@@ -70,11 +70,11 @@ public class ProjectServicesTest {
 
 	/**
 	 * Test method for
-	 * {@link com.fsd.program.services.ProjectServices#deleteProject(com.fsd.program.entity.Project)}.
+	 * {@link com.fsd.program.services.ProjectSvcs#deleteProject(com.fsd.program.entity.ProjectEntity)}.
 	 */
 	@Test
 	public void testDeleteProject() {
-		testCase.deleteProject(new Project());
+		testCase.deleteProject(new ProjectEntity());
 	}
 
 }

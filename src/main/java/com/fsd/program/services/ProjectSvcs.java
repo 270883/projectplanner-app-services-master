@@ -14,39 +14,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fsd.program.entity.Project;
-import com.fsd.program.entity.Task;
-import com.fsd.program.entity.User;
-import com.fsd.program.repo.ProjectRepository;
-import com.fsd.program.repo.TaskRepository;
-import com.fsd.program.repo.UserRepository;
+import com.fsd.program.entity.ProjectEntity;
+import com.fsd.program.entity.TaskEntity;
+import com.fsd.program.entity.UserEntity;
+import com.fsd.program.repo.ProjectRepo;
+import com.fsd.program.repo.TaskRepo;
+import com.fsd.program.repo.UserRepo;
 
 /**
- * @author kj
+ * @author KarthickM
  *
  */
 @RestController
 @RequestMapping("/projects")
-public class ProjectServices {
+public class ProjectSvcs {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProjectServices.class);
-
-	@Autowired
-	private ProjectRepository projectRepository;
+	private static final Logger logger = LoggerFactory.getLogger(ProjectSvcs.class);
 
 	@Autowired
-	private UserRepository userRepository;
+	private ProjectRepo projectRepository;
 
 	@Autowired
-	private TaskRepository taskRepository;
+	private UserRepo userRepository;
+
+	@Autowired
+	private TaskRepo taskRepository;
 
 	@RequestMapping("/getProjects")
-	public List<Project> getProjects() {
+	public List<ProjectEntity> getProjects() {
 		logger.info("Method getproject() executed");
-		List<Project> projects = projectRepository.findAll();
+		List<ProjectEntity> projects = projectRepository.findAll();
 		projects.stream().forEach((project) -> {
 			String projectId = project.getId();
-			List<Task> tasks = taskRepository.findByProjectId(projectId);
+			List<TaskEntity> tasks = taskRepository.findByProjectId(projectId);
 			project.setTasksCount(tasks.size());
 
 		});
@@ -54,9 +54,9 @@ public class ProjectServices {
 	}
 
 	@RequestMapping("/addUpdate")
-	public List<Project> addUpdateProject(@RequestBody Map<String, String> requestMap) throws ParseException {
+	public List<ProjectEntity> addUpdateProject(@RequestBody Map<String, String> requestMap) throws ParseException {
 
-		Project projectEntity = new Project();
+		ProjectEntity projectEntity = new ProjectEntity();
 		projectEntity.setId(requestMap.get("id"));
 		projectEntity.setEndDate(requestMap.get("endDate"));
 		projectEntity.setStartDate(requestMap.get("startDate"));
@@ -64,7 +64,7 @@ public class ProjectServices {
 		projectEntity.setPriority(Integer.parseInt(requestMap.get("priority")));
 
 		String managerId = requestMap.get("managerId");
-		User user = userRepository.findById(managerId).get();
+		UserEntity user = userRepository.findById(managerId).get();
 		projectEntity.setManagerId(managerId);
 		projectEntity.setManagerName(user.getFirstName() + " " + user.getLastName());
 		projectRepository.save(projectEntity);
@@ -72,7 +72,7 @@ public class ProjectServices {
 	}
 
 	@RequestMapping("/deleteProject")
-	public List<Project> deleteProject(@RequestBody Project project) {
+	public List<ProjectEntity> deleteProject(@RequestBody ProjectEntity project) {
 		projectRepository.delete(project);
 		return projectRepository.findAll();
 	}

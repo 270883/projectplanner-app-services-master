@@ -15,10 +15,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.fsd.program.entity.User;
+import com.fsd.program.entity.UserEntity;
 
 /**
- * @author kj
+ * @author KarthickM
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -27,25 +27,25 @@ import com.fsd.program.entity.User;
 public class UserServicesTest {
 
 	@Autowired
-	private UserServices testCase;
+	private UserSvcs testCase;
 
 	@Test
 	public void test_getAllUsers() {
-		List<User> users = testCase.getAllUsers();
+		List<UserEntity> users = testCase.getAllUsers();
 		assertNotNull(users);
 	}
 
 	@Test
 	public void test_addUpdateUser() {
-		User user = new User();
+		UserEntity user = new UserEntity();
 		user.setId("wqdwef");
-		List<User> users = testCase.addUpdateUser(user);
+		List<UserEntity> users = testCase.addUpdateUser(user);
 		assertNotNull(users);
 	}
 
 	@Test
 	public void test_deleteUser() {
-		User user = new User();
+		UserEntity user = new UserEntity();
 		user.setId("1111111");
 		testCase.deleteUser(user);
 		assertTrue("Delete Success", true);
@@ -53,7 +53,7 @@ public class UserServicesTest {
 	
 	@Test
 	public void test_deleteUser_1() {
-		User user = new User();
+		UserEntity user = new UserEntity();
 		user.setId("3254fd");
 		testCase.deleteUser(user);
 		assertTrue("Delete Success", true);

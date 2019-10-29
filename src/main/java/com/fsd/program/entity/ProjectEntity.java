@@ -7,11 +7,11 @@ import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 /**
- * @author kj
+ * @author KarthickM
  *
  */
 @Document(collection = "Project")
-public class Project {
+public class ProjectEntity {
 
 	@Id
 	private String id;

@@ -17,10 +17,10 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.fsd.program.entity.Task;
+import com.fsd.program.entity.TaskEntity;
 
 /**
- * @author kj
+ * @author KarthickM
  *
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -29,7 +29,7 @@ import com.fsd.program.entity.Task;
 public class TaskServicesTest {
 
 	@Autowired
-	private TaskServices testCase;
+	private TaskSvcs testCase;
 
 	@Test
 	public void test() {
@@ -93,7 +93,7 @@ public class TaskServicesTest {
 
 	@Test
 	public void test_deleteTask() {
-		assertNotNull(testCase.deleteTask(new Task()));
+		assertNotNull(testCase.deleteTask(new TaskEntity()));
 	}
 
 }

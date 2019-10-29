@@ -8,10 +8,10 @@ import org.springframework.data.mongodb.repository.config.EnableMongoRepositorie
 @SpringBootApplication
 @EnableMongoRepositories(basePackages = { "com.fsd.program.repo" })
 @ComponentScan(basePackages = { "com.fsd.program" })
-public class ServicesApplication {
+public class ProjectPlannerServiceApp {
 
 	public static void main(String[] args) {
-		SpringApplication.run(ServicesApplication.class, args);
+		SpringApplication.run(ProjectPlannerServiceApp.class, args);
 	}
 
 }

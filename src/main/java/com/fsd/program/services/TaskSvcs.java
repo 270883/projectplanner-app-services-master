@@ -15,53 +15,53 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.fsd.program.entity.ParentTask;
-import com.fsd.program.entity.Project;
-import com.fsd.program.entity.Task;
-import com.fsd.program.entity.User;
-import com.fsd.program.repo.ParentTaskRepository;
-import com.fsd.program.repo.ProjectRepository;
-import com.fsd.program.repo.TaskRepository;
-import com.fsd.program.repo.UserRepository;
+import com.fsd.program.entity.ParestTaskEntity;
+import com.fsd.program.entity.ProjectEntity;
+import com.fsd.program.entity.TaskEntity;
+import com.fsd.program.entity.UserEntity;
+import com.fsd.program.repo.ParentTaskRepo;
+import com.fsd.program.repo.ProjectRepo;
+import com.fsd.program.repo.TaskRepo;
+import com.fsd.program.repo.UserRepo;
 
 /**
- * @author kj
+ * @author KarthickM
  *
  */
 @RestController
 @RequestMapping("/task")
-public class TaskServices {
+public class TaskSvcs {
 	
-	private static final Logger logger = LoggerFactory.getLogger(TaskServices.class);
+	private static final Logger logger = LoggerFactory.getLogger(TaskSvcs.class);
 
 	@Autowired
-	private TaskRepository taskRepository;
+	private TaskRepo taskRepository;
 
 	@Autowired
-	private ProjectRepository projectRepository;
+	private ProjectRepo projectRepository;
 
 	@Autowired
-	private UserRepository userRepository;
+	private UserRepo userRepository;
 
 	@Autowired
-	private ParentTaskRepository parentTaskRepository;
+	private ParentTaskRepo parentTaskRepository;
 
 	@RequestMapping("/getTasks")
-	public List<Task> getTasks() {
+	public List<TaskEntity> getTasks() {
 		logger.info("Method getTasks() executed");
-		List<Task> tasks = taskRepository.findAll();
+		List<TaskEntity> tasks = taskRepository.findAll();
 
-		for (Task task : tasks) {
+		for (TaskEntity task : tasks) {
 			String parentId = task.getParentId();
 			if (parentId != null) {
-				ParentTask parentTask = parentTaskRepository.findById(parentId).get();
+				ParestTaskEntity parentTask = parentTaskRepository.findById(parentId).get();
 				task.setParentTask(parentTask.getParentTask());
 				
 			}
 			if (task.getUserId() != null && !task.getUserId().isEmpty()) {
 				try {
-					User user = userRepository.findById(task.getUserId()).get();
-					Project project = projectRepository.findById(task.getProjectId()).get();
+					UserEntity user = userRepository.findById(task.getUserId()).get();
+					ProjectEntity project = projectRepository.findById(task.getProjectId()).get();
 					task.setProjectName(project.getProjectName());
 					task.setUserName(user.getFirstName() + " " + user.getLastName());
 				} catch (Exception e) {
@@ -74,34 +74,34 @@ public class TaskServices {
 	}
 
 	@RequestMapping("/getParentTasks")
-	public List<ParentTask> getParentTasks() {
+	public List<ParestTaskEntity> getParentTasks() {
 		return parentTaskRepository.findAll();
 	}
 
 	@RequestMapping("/addUpdate")
-	public List<Task> addUpdateTask(@RequestBody Map<String, String> requestMap) throws ParseException {
+	public List<TaskEntity> addUpdateTask(@RequestBody Map<String, String> requestMap) throws ParseException {
 		logger.info("Method addUpdateTask() executed");
 		taskRepository.save(updateTaskEntity(requestMap));
 		return getTasks();
 	}
 
 	@RequestMapping("/endTask")
-	public List<Task> endTask(@RequestBody Map<String, String> requestMap) throws ParseException {
-		Task taskEntity = updateTaskEntity(requestMap);
+	public List<TaskEntity> endTask(@RequestBody Map<String, String> requestMap) throws ParseException {
+		TaskEntity taskEntity = updateTaskEntity(requestMap);
 		taskEntity.setStatus("Completed");
 		taskRepository.save(taskEntity);
 		return getTasks();
 	}
 
 	@RequestMapping("/deleteTask")
-	public List<Task> deleteTask(@RequestBody Task task) {
+	public List<TaskEntity> deleteTask(@RequestBody TaskEntity task) {
 		taskRepository.delete(task);
 		return taskRepository.findAll();
 	}
 
-	public Task updateTaskEntity(Map<String, String> requestMap) {
-		Task taskEntity = new Task();
-		ParentTask parentTaskEntity = new ParentTask();
+	public TaskEntity updateTaskEntity(Map<String, String> requestMap) {
+		TaskEntity taskEntity = new TaskEntity();
+		ParestTaskEntity parentTaskEntity = new ParestTaskEntity();
 		taskEntity.setId(requestMap.get("id"));
 		taskEntity.setTask(requestMap.get("task"));
 		taskEntity.setEndDate(requestMap.get("endDate"));
